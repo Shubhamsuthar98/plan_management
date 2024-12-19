@@ -99,7 +99,11 @@ class ComboPlanController extends Controller
         $comboPlan = ComboPlan::find($id);
         $comboPlan->name = $validated['name'];
         $comboPlan->price = $validated['price'];
-        $comboPlan->plan_id = $validated['plan_id'];
+        
+        foreach ($validated['plan_id'] as $planId) {
+            $comboPlan->plan_id = $planId;
+        }
+        $comboPlan->save();
 
         return redirect()->route('comboplan.index')->with('success', 'ComboPlan Updated successfully.');
     }
